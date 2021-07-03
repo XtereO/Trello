@@ -50,8 +50,10 @@ export const TaskItem: React.FC<PropsType> = (props) => {
         <div
             onDoubleClick={() => setShow(true)}
             onDragStart={(e: any) => props.dragStartHandler(e, { title: props.title, description: props.description }, props.board)}
-            onDragEnd={(e: any) => props.dragEndHandler(e)}
-            onDragLeave={(e: any) => props.dragEndHandler(e)}
+            onDragEnd={(e: any) => {
+                props.dragEndHandler(e)
+            }}
+            onDragLeave={(e: any) => {}}
             onDragOver={(e: any) => props.dragOverHandler(e)}
             onDrop={(e: any) => props.dropHandler(e, { title: props.title, description: props.description }, props.board)}
             draggable={true}

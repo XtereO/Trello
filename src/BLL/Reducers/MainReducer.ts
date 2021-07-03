@@ -21,7 +21,7 @@ const initialState={
     openedList:null as null | ListType,
     openedBoard:null as null | BoardType,
     openedTask:null as null | TaskType,
-    lists:testLists as ListType[]   
+    lists:[] as ListType[]   
 }
 type InitialStateType=typeof initialState
 type ActionType=(AddListType | AddBoardType | AddTaskType | SetOpenedTaskType
@@ -29,7 +29,6 @@ type ActionType=(AddListType | AddBoardType | AddTaskType | SetOpenedTaskType
     SetBoardType | SetListsType)
 
 export const mainReducer=(state=initialState,action:ActionType):InitialStateType=>{
-    debugger
     switch (action.type){
         case SET_LISTS:
             return{

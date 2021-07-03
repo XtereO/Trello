@@ -8,6 +8,7 @@ import { Plus } from "../Bricks/Plus"
 import { Header } from "./Header";
 import { AddList } from "../MainPage/AddList";
 import { BoardItem } from "../Bricks/BoardItem"
+import { Bucket } from "../Bricks/Bucket"
 
 type PropsType={
     height:number
@@ -18,19 +19,22 @@ export const ListPage:React.FC<PropsType>=(props)=>{
     let [currentCard,setCard]=useState<BoardType | null>(null)
 
     //start - For replace tasks
+    let [showBucket,setShowBucket]=useState(false)
     let [currentBoard,setCurrentBoard]=useState<null | BoardType>(null)
     let [currentTask,setCurrentTask]=useState<null | TaskType>(null)
     const dragStartHandlerTask=(e:any,task:TaskType,board:BoardType)=>{
         setCurrentTask(task)
         setCurrentBoard(board)
+        setShowBucket(true)
     }
     const dragEndHandlerTask=(e:any)=>{
+        setShowBucket(false)
     }
     const dragOverHandlerTask=(e:any)=>{
         //@ts-ignore
         e.preventDefault()
     }
-    const dropHandlerTask=(e:any,task:TaskType | null,board:BoardType)=>{
+    const dropHandlerTask=(e:any,task:TaskType | null,board:BoardType | null)=>{
         //@ts-ignore
         e.preventDefault()
         let oldBoard=currentBoard
@@ -38,6 +42,7 @@ export const ListPage:React.FC<PropsType>=(props)=>{
         oldBoard.tasks=currentBoard.tasks.filter(o=>o.title!==currentTask.title)
         //@ts-ignore
         dispatch(setBoard(oldBoard))
+        if(board){
         if(board.title!==currentBoard?.title && task){
             let i1=0
             board.tasks.forEach((t,index)=>{
@@ -71,8 +76,8 @@ export const ListPage:React.FC<PropsType>=(props)=>{
         }else{
             board.tasks.push(currentTask as TaskType)
             dispatch(setBoard(board))
-        }
-
+        }}
+        setShowBucket(false)
     }
     //For replace tasks - end
 
@@ -157,7 +162,6 @@ export const ListPage:React.FC<PropsType>=(props)=>{
         dropHandler={dropHandler}
         title={o.title} tasks={o.tasks} 
         />})
-//Tost
     return<div 
         style={{height:props.height,overflowX:"scroll"}}
         className="bgListUI">
@@ -167,13 +171,16 @@ export const ListPage:React.FC<PropsType>=(props)=>{
                 width:(375*(boards ? boards.length : 0))}}>
                 {boards}
             </div>
-            <div>
-                
+            <div className="text-center mt-4 prompt">
+            {(!boards?.length) && "To create board tap +"}
             </div>
             <Plus isPC={props.isPC} function={openHandler} />
             <AddList show={show} closeHandler={closeHandler}
             addFunction={addBoardWithDispatch} title="board"
             borrowedGroup={openedList ? openedList.boards : []} />
+            <Bucket show={showBucket}
+            dropHandler={(e:any)=>dropHandlerTask(e,null,null)}
+            isPC={props.isPC} dragOverHandler={dragOverHandlerTask} />
         <div>
         </div>
     </div>

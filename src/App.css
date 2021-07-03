@@ -5,6 +5,41 @@
   background-color: rgb(251, 246, 246);
   border-bottom: gray 1px solid;
 }
+.prompt{
+  color:rgb(195, 191, 191);
+  font-size: 2em;
+  animation: promptShine  infinite 6s;
+}
+@keyframes promptShine {
+  0%{
+    opacity: 1;
+    font-size: 2.1em;
+  }
+  50%{
+    opacity: 0.1;
+    font-size: 2em;
+  }
+  100%{
+    opacity: 1;
+    font-size: 2.1em;
+  }
+}
+.Bucket{
+  background-color: lightgrey;
+  color:white;
+  font-size: 3em;
+  border-radius: 2000px;
+  width:1.7em;
+  height:1.7em;
+  display: flex;
+  transition: all 800ms linear;
+  justify-content: center;
+}
+.Bucket:hover{
+  transition:all 200ms linear;
+  background-color:gray;
+  box-shadow: 1px 1px 1px 1px gray;
+}
 .Plus{
   background-color: rgb(8, 233, 0);
   color:white;

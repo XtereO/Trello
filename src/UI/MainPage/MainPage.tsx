@@ -36,6 +36,9 @@ export const MainPage:React.FC<PropsType>=(props)=>{
         <div className="container mt-4">
             {[...listsJSX].reverse()}
         </div>
+        <div className="text-center prompt">
+            {listsJSX.length==0 && "To create list tap +"}
+        </div>
         <Plus isPC={props.isPC} function={openHandler}/>
         <AddList show={show} closeHandler={closeHandler} 
         title={"list"}
