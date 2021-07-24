@@ -6,12 +6,17 @@ import { Switch,Route } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from 'react';
 import { ListPage } from './UI/ListPage/ListPage';
+import { ListType } from './Types/Type';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLists } from './BLL/Reducers/MainReducer';
+import { getLists } from './BLL/Selectors/mainSelector';
 
 
 export const delay = (ms:number) => new Promise(resolve => setTimeout(resolve, ms))
 function App() {
   let [isPC,setMode]=useState(true)
   let [height,setHeight]=useState(window.innerHeight)
+  const dispatch = useDispatch()
   let setCurrentMode=(e:UIEvent)=>{
     if (window.innerWidth>760){
       setMode(true)
@@ -31,6 +36,17 @@ function App() {
       window.removeEventListener("resize",setCurrentMode)
     })
   },[])
+  const lists = useSelector(getLists)
+  useEffect(()=>{
+    //@ts-ignore
+    let dates:ListType[] = JSON.parse(window.localStorage.getItem('dates')) ? JSON.parse(window.localStorage.getItem('dates')) : []
+    if(dates){
+      dispatch(setLists(dates))
+    }
+  },[])
+  useEffect(()=>{
+    window.localStorage.setItem('dates',JSON.stringify(lists))
+  },[lists])
 
   return (
     <div className="">

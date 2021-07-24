@@ -10,13 +10,7 @@ const SET_BOARDS:"MainReducer/SET_BOARDS"="MainReducer/SET_BOARDS"
 const SET_BOARD:"MainReducer/SET_BOARD"="MainReducer/SET_BOARD"
 const SET_LISTS:"MainReducer/SET_LISTS"="MainReducer/SET_LISTS"
 
-const testLists=[
-    {title:"PricolJS",boards:[
-        {title:"Board1",tasks:[{title:"Task1",description:""},
-            {title:"Task2",description:""},
-        ]},{title:"Board2",tasks:[{title:"Task3",description:""}]}
-    ]}
-] as ListType[]
+
 const initialState={
     openedList:null as null | ListType,
     openedBoard:null as null | BoardType,
