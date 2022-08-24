@@ -1,8 +1,5 @@
+import { memo } from "react";
 
-
-type PropsType={}
-export const Header:React.FC<PropsType>=(props)=>{
-    return<div className="MainHeader">
-        My Lists
-    </div>
-}
+export const Header = memo(() => {
+  return <div className="MainHeader">My Lists</div>;
+});
